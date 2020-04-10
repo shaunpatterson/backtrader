@@ -330,9 +330,10 @@ class YahooFinanceData(YahooFinanceCSVData):
                 continue
 
             ctype = resp.headers['Content-Type']
-            if 'text/csv' not in ctype:
-                self.error = 'Wrong content type: %s' % ctype
-                continue  # HTML returned? wrong url?
+            if ctype not in ['text/csv', 'text/plain']:
+                 self.error = 'Wrong content type: %s' % ctype
+                 continue  # HTML returned? wrong url?
+
 
             # buffer everything from the socket into a local buffer
             try:
